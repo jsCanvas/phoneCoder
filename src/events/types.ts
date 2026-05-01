@@ -1,5 +1,5 @@
 /**
- * Streaming events emitted by phoneBot's SSE endpoint
+ * Streaming events emitted by dockerBot's SSE endpoint
  * `POST /api/sessions/:sid/messages`.
  *
  * They map 1:1 with the `event:` lines on the wire.

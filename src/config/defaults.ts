@@ -1,5 +1,5 @@
 /**
- * Default `phoneBot` API base URL used the first time the app is launched.
+ * Default dockerBot API base URL used the first time the mobile app is launched.
  * On a physical device, override this from the Settings tab to point at your
  * server's LAN address (e.g. `http://192.168.1.10:8080/api`).
  */

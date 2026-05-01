@@ -12,7 +12,7 @@ const tabs: MobileTab[] = [
     key: 'settings',
     label: 'Model',
     title: 'Connection & Models',
-    description: 'Configure phoneBot base URL and OpenAI-compatible model credentials.',
+    description: 'Configure dockerBot base URL and OpenAI-compatible model credentials.',
   },
   {
     key: 'project',

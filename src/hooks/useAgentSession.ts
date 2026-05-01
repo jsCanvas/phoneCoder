@@ -10,7 +10,7 @@ import type { SendMessageInput } from '../types/api';
  * message which streams back as Server-Sent Events.
  *
  * Implementation note:
- * - phoneBot uses *named* SSE events (`event: tool-use`), so we do not rely on
+ * - dockerBot uses *named* SSE events (`event: tool-use`), so we do not rely on
  *   the browser's `EventSource` (which only triggers default-message handlers
  *   conveniently). Instead we use `fetch` with a streamed body and parse
  *   frames ourselves.
@@ -85,7 +85,7 @@ export function useAgentSession({ apiClient, sessionId, streamFetch }: UseAgentS
       });
 
       if (!response.ok) {
-        let message = `phoneBot stream failed (${response.status})`;
+        let message = `dockerBot stream failed (${response.status})`;
         try {
           const txt = await response.text();
           if (txt) message = txt;
@@ -95,7 +95,7 @@ export function useAgentSession({ apiClient, sessionId, streamFetch }: UseAgentS
         throw new Error(message);
       }
       if (!response.body) {
-        throw new Error('phoneBot stream returned no body.');
+        throw new Error('dockerBot stream returned no body.');
       }
 
       const reader = response.body.getReader();

@@ -7,8 +7,8 @@ export type UploadedAttachment = {
 };
 
 /**
- * Turns a free-form chat input + attachment list into a phoneBot
- * `SendMessageInput`. The text is forwarded as-is — phoneBot's agent does its
+ * Turns a free-form chat input + attachment list into a dockerBot
+ * `SendMessageInput`. The text is forwarded as-is — dockerBot's agent does its
  * own `@image`/`@file` token resolution server-side, but we still pull out
  * skill/MCP hints so we can attach them as enabled context for the run.
  */

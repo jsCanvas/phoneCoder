@@ -14,7 +14,7 @@ type GitPlanScreenProps = {
 
 export function GitPlanScreen({ apiBaseUrl, project }: GitPlanScreenProps) {
   const apiClient = useMemo(() => new PhoneBotApiClient(apiBaseUrl), [apiBaseUrl]);
-  const [message, setMessage] = useState('chore: phoneBot updates');
+  const [message, setMessage] = useState('chore: dockerBot updates');
   const [branch, setBranch] = useState('');
   const [checkoutBranch, setCheckoutBranch] = useState(false);
   const [gitStatus, setGitStatus] = useState<GitStatusDto | null>(null);

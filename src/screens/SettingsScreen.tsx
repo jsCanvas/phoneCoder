@@ -77,7 +77,7 @@ export function SettingsScreen({ apiBaseUrl, onApiBaseUrlChange, storage }: Sett
     try {
       await saveApiBaseUrl({ storage, apiBaseUrl: draftBaseUrl });
       onApiBaseUrlChange(draftBaseUrl);
-      setStatus('Saved phoneBot base URL');
+      setStatus('Saved dockerBot base URL');
     } catch (error) {
       setStatus(`Save base URL failed: ${getErrorMessage(error)}`);
     }
@@ -158,10 +158,10 @@ export function SettingsScreen({ apiBaseUrl, onApiBaseUrlChange, storage }: Sett
   return (
     <View style={styles.stack}>
       <ScreenCard
-        title="phoneBot connection"
-        description="Point the app at the phoneBot API the server exposes (e.g. http://localhost:8080/api)."
+        title="dockerBot connection"
+        description="Point the app at the dockerBot API from this stack (e.g. http://localhost:8080/api)."
       >
-        <FormField label="phoneBot API Base URL" value={draftBaseUrl} onChangeText={setDraftBaseUrl} />
+        <FormField label="dockerBot API Base URL" value={draftBaseUrl} onChangeText={setDraftBaseUrl} />
         <Button title="Save base URL" onPress={() => void applyBaseUrl()} />
         {status ? <Text style={styles.status}>{status}</Text> : null}
       </ScreenCard>
@@ -246,7 +246,7 @@ export function SettingsScreen({ apiBaseUrl, onApiBaseUrlChange, storage }: Sett
 
       <ScreenCard
         title="OpenAI-compatible model"
-        description="Add a baseUrl + api-key endpoint. The active config is what phoneBot uses for new chats."
+        description="Add a baseUrl + api-key endpoint. The active config is what dockerBot uses for new chats."
       >
         <FormField label="Name" value={name} onChangeText={setName} placeholder="e.g. deepseek-prod" />
         <FormField label="OpenAI Base URL" value={openAiBaseUrl} onChangeText={setOpenAiBaseUrl} />

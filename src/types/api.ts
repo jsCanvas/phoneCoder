@@ -1,6 +1,6 @@
 /**
- * Type definitions mirroring the phoneBot HTTP API surface.
- * See: phoneBot/README.md and docs/plans/2026-04-28-phonebot-design.md
+ * Type definitions mirroring the dockerBot HTTP API surface.
+ * See: phoneBot/README.md (Expo client) and docs/plans/2026-04-28-phonebot-design.md
  */
 
 // ─── Model configs ─────────────────────────────────────────────────────────

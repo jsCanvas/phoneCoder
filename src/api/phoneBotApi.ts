@@ -322,7 +322,7 @@ export class PhoneBotApiClient {
     if (!response.ok) {
       const requestId = response.headers.get('x-request-id') ?? undefined;
       let code: string | undefined;
-      let message = `phoneBot ${response.status} ${response.statusText ?? ''}`.trim();
+      let message = `dockerBot ${response.status} ${response.statusText ?? ''}`.trim();
       try {
         const body = (await response.json()) as { error?: { code?: string; message?: string } };
         if (body && body.error) {
