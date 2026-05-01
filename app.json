@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "phoneClawClient",
+    "slug": "phoneclaw-client",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "expo-asset"
+    ]
+  }
+}
