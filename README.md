@@ -18,9 +18,13 @@ The app is six-tab and maps 1:1 with the dockerBot HTTP API surface:
 
 ## Screenshots
 
-| Settings | Projects | Chat | Files | Preview | Docker | Git |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ![Settings](images/model.jpeg) | ![Projects](images/project.jpeg) | ![Chat](images/chat.jpeg) | ![Files](images/files.jpeg) | ![Preview](images/preview.jpeg) | ![Docker](images/docker.jpeg) | ![Git](images/gitpush.jpeg) |
+| Settings | Projects | Chat | Files |
+| :---: | :---: | :---: | :---: |
+| ![Settings](images/model.jpeg) | ![Projects](images/project.jpeg) | ![Chat](images/chat.jpeg) | ![Files](images/files.jpeg) |
+
+| Preview | Docker | Git |
+| :---: | :---: | :---: |
+| ![Preview](images/preview.jpeg) | ![Docker](images/docker.jpeg) | ![Git](images/gitpush.jpeg) |
 
 The client persists `apiBaseUrl`, the selected `projectId`, the selected
 `sessionId` and the active model config id in `AsyncStorage` under the
