@@ -48,8 +48,6 @@ flowchart LR
 | **phoneBot** | [jsCanvas/phoneBot](https://github.com/jsCanvas/phoneBot) | `task/phoneBot/` | First-party **mobile/desktop-style** UI (Expo): six tabs mapped 1:1 to dockerBot routes. Ships the canonical TypeScript modules shared with clientBot (`api/`, `hooks/`, `chat/`, `types/`, etc.). |
 | **clientBot** | [jsCanvas/clientBot](https://github.com/jsCanvas/clientBot) | `task/clientBot/` | **Web IDE** (VS Code–like shell): Monaco editor, file tree, terminal/output panels, sidebar chat with `@`/`/` mentions — reuses phoneBot logic via path alias **`@phoneBot/*`**. |
 
-**Important naming note.** The Compose stack still uses identifiers such as `PHONEBOT_*` env vars, `phonebot-api`/`phonebot-agent` container names, and the npm package name `phonebot` inside `dockerBot/package.json`. These are **legacy infrastructure labels**. Product and documentation wording for “the orchestration service” is **dockerBot**. Do not confuse the folder `phoneBot/` (the **client app**) with those env prefixes (the **server** deployment).
-
 ---
 
 ## 2. dockerBot (backend)

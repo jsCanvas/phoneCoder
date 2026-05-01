@@ -48,8 +48,6 @@ flowchart LR
 | **phoneBot** | [jsCanvas/phoneBot](https://github.com/jsCanvas/phoneBot) | `task/phoneBot/` | 官方 **移动/多端** UI（Expo）：六个 Tab 与 dockerBot 路由一一对应；同时托管与 clientBot 共享的 TypeScript 模块（`api/`、`hooks/`、`chat/`、`types/` 等）。 |
 | **clientBot** | [jsCanvas/clientBot](https://github.com/jsCanvas/clientBot) | `task/clientBot/` | **网页 IDE**（类 VS Code 外壳）：Monaco、文件树、输出/终端/端口等面板、侧栏聊天并支持 `@` / `/` 提及；通过路径别名 **`@phoneBot/*`** 复用 phoneBot 逻辑。 |
 
-**命名说明（重要）。** Compose 栈里仍大量使用 `PHONEBOT_*` 环境变量、`phonebot-api` / `phonebot-agent` 一类容器名，以及 `dockerBot/package.json` 中的 npm 包名 `phonebot` 等——这些属于 **历史基础设施命名**。在产品与对外文档语境下，编排服务称为 **dockerBot**。请勿把目录 **`phoneBot/`**（**客户端应用**）与 **`PHONEBOT_` 前缀**（**服务端部署**）混为一谈。
-
 ---
 
 ## 2. dockerBot（后端）
