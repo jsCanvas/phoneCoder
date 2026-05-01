@@ -39,7 +39,7 @@ flowchart LR
     WEB["clientBot\nVite · Browser IDE"]
   end
   PHONE -->|HTTPS/LAN REST + SSE| API
-  WEB -->|REST + SSE\n(often proxied)| API
+  WEB -->|REST + SSE| API
 ```
 
 | Package | GitHub | Path in this workspace | Primary role |
