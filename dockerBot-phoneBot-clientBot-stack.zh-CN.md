@@ -1,17 +1,9 @@
-# dockerBot · phoneBot · clientBot — 架构与使用指南（中文版）
+# [dockerBot](https://github.com/jsCanvas/dockerBot) · [phoneBot](https://github.com/jsCanvas/phoneBot) · [clientBot](https://github.com/jsCanvas/clientBot) — 架构与使用指南（中文版）
 
-本文介绍了一个具备全自动开发和一键部署能力的 AI 智能体系统中，三个子项目之间的协同工作方式：**NestJS 后端**（`dockerBot`）、**Expo / React Native 客户端**（`phoneBot`）、**Vite / React 网页 IDE**（`clientBot`）。三类客户端共用 dockerBot 暴露的 HTTP API（路径前缀 `/api/...`）。
+本文介绍了一个具备全自动开发和一键部署能力的 AI 智能体系统，其三个子项目：**NestJS 后端**（`dockerBot`）、**Expo / React Native 客户端**（`phoneBot`）、**Vite / React 网页 IDE**（`clientBot`）。
+只需提供 Git 仓库与访问令牌，即可由系统为你完成全栈开发与部署，并且支持移动端编程，实现随时随地——掏出手机就能完成开发。
 
-> 英文版原文：[dockerBot-phoneBot-clientBot-stack.md](./dockerBot-phoneBot-clientBot-stack.md)
-
-### 一句话介绍
-
-| 项目 | 介绍 |
-| --- | --- |
-| **dockerBot** | 具备全自动开发与一键部署能力的 AI 智能体系统。
-提供 Git 仓库与访问令牌，即可由系统为你完成全栈开发与部署。 |
-| **phoneBot** | 随时随地——掏出手机就能完成开发。 |
-| **clientBot** | 支持一键全栈部署的网页智能 IDE。 |
+> 英文版原文：[dockerBot-phoneBot-clientBot-stack.md](https://github.com/jsCanvas/phoneBot/blob/main/dockerBot-phoneBot-clientBot-stack.md)
 
 ### 上游源码仓库（GitHub）
 
@@ -42,11 +34,11 @@ flowchart LR
   WEB -->|REST + SSE\n常见为代理转发| API
 ```
 
-| 子项目 | GitHub | 本工作区路径 | 主要职责 |
+| 子项目 | GitHub | 介绍 | 主要职责 |
 | --- | --- | --- | --- |
-| **dockerBot** | [jsCanvas/dockerBot](https://github.com/jsCanvas/dockerBot) | `task/dockerBot/` | **权威后端**：工程与 Git、文件、加密模型配置、面向多轮会话的 **SSE** 聊天、**沙箱容器**内执行 Agent、MCP / Skills、通过宿主 `docker.sock` 编排 Docker 运行时、配合 Traefik 的预览域名等。 |
-| **phoneBot** | [jsCanvas/phoneBot](https://github.com/jsCanvas/phoneBot) | `task/phoneBot/` | 官方 **移动/多端** UI（Expo）：六个 Tab 与 dockerBot 路由一一对应；同时托管与 clientBot 共享的 TypeScript 模块（`api/`、`hooks/`、`chat/`、`types/` 等）。 |
-| **clientBot** | [jsCanvas/clientBot](https://github.com/jsCanvas/clientBot) | `task/clientBot/` | **网页 IDE**（类 VS Code 外壳）：Monaco、文件树、输出/终端/端口等面板、侧栏聊天并支持 `@` / `/` 提及；通过路径别名 **`@phoneBot/*`** 复用 phoneBot 逻辑。 |
+| **dockerBot** | [jsCanvas/dockerBot](https://github.com/jsCanvas/dockerBot) | 具备全自动开发与一键部署能力的 AI 智能体系统。只需提供 Git 仓库与访问令牌，即可由系统为你完成全栈开发与部署。 | **权威后端**：工程与 Git、文件、加密模型配置、面向多轮会话的 **SSE** 聊天、**沙箱容器**内执行 Agent、MCP / Skills、通过宿主 `docker.sock` 编排 Docker 运行时、配合 Traefik 的预览域名等。 |
+| **phoneBot** | [jsCanvas/phoneBot](https://github.com/jsCanvas/phoneBot) | 随时随地——掏出手机就能完成开发。 | 官方 **移动/多端** UI（Expo）：六个 Tab 与 dockerBot 路由一一对应；同时托管与 clientBot 共享的 TypeScript 模块（`api/`、`hooks/`、`chat/`、`types/` 等）。 |
+| **clientBot** | [jsCanvas/clientBot](https://github.com/jsCanvas/clientBot) | 支持一键全栈部署的网页智能 IDE。 | **网页 IDE**（类 VS Code 外壳）：Monaco、文件树、输出/终端/端口等面板、侧栏聊天并支持 `@` / `/` 提及；通过路径别名 **`@phoneBot/*`** 复用 phoneBot 逻辑。 |
 
 ---
 
@@ -82,7 +74,7 @@ cp .env.example .env
 - **REST 基地址：** `http://localhost:8080/api`（或换成本机局域网 IP + `/api`）。
 - Traefik **仪表盘地址**会因配置略有不同，`scripts/start.sh` 的输出里会提示（本地配置常见 `:8081`）。
 
-API 一览、cURL 示例、安全说明及 npm 脚本（如 `npm run start:dev`、测试、lint），详见 **`dockerBot/README.md`** 与 **`docs/plans/`** 下的设计稿（若有 `2026-04-28-dockerBot-design.md` 等）。
+API 一览、cURL 示例、安全说明及 npm 脚本（如 `npm run start:dev`、测试、lint），详见 **[dockerBot/design.md](https://github.com/jsCanvas/dockerBot/blob/main/design.md)** 。
 
 ### 2.4 客户端必填配置项
 
@@ -126,7 +118,7 @@ npm run typecheck
 npm test
 ```
 
-Tab 与接口对应关系见 **`phoneBot/README.md`**。
+Tab 与接口对应关系见 **[phoneBot/design.md](https://github.com/jsCanvas/phoneBot/blob/main/design.md)**。
 
 ### 3.5 phoneBot 界面截图
 
@@ -231,13 +223,8 @@ clientBot/vite.config.ts
 
 | 主题 | 位置 |
 | --- | --- |
-| dockerBot 特性、cURL、npm 脚本 | `dockerBot/README.md` |
-| phoneBot Tab ↔ API、流式协议说明 | `phoneBot/README.md` |
-| 实现级设计 / 里程碑 | `docs/plans/*.md` |
+| dockerBot 特性、cURL、npm 脚本 | [dockerBot/design.md](https://github.com/jsCanvas/dockerBot/blob/main/design.md) |
+| phoneBot Tab ↔ API、流式协议说明 | [phoneBot/design.md](https://github.com/jsCanvas/phoneBot/blob/main/design.md) |
 | 内置技能（Docker runtime 约定等） | `dockerBot/src/skills/builtin/*.md` |
 
 ---
-
-## 7.协作与变更纪律
-
-凡是触及 **REST 或 SSE 契约** 的改动，建议顺序：**先改 dockerBot 服务端**，再同步 **`phoneBot/src` 下共享类型与调用**，最后若仅有界面/文案再在 **clientBot** 收尾。这样能在一套 **`@phoneBot`** 别名下维持手机与 Web **类型一致**，减少分叉实现。

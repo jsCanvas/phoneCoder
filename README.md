@@ -1,17 +1,9 @@
-# dockerBot · phoneBot · clientBot — Architecture & Usage Guide
+# [dockerBot](https://github.com/jsCanvas/dockerBot) · [phoneBot](https://github.com/jsCanvas/phoneBot) · [clientBot](https://github.com/jsCanvas/clientBot) — Architecture & Usage Guide
 
 Chinese version: [`dockerBot-phoneBot-clientBot-stack.zh-CN.md`](./dockerBot-phoneBot-clientBot-stack.zh-CN.md)
 
-This article describes how the three subprojects in an AI agent system—featuring fully automated development and one-click deployment—collaborate with each other: the **NestJS backend** (`dockerBot`), the **Expo/React Native mobile client** (`phoneBot`), and the **Vite/React web IDE** (`clientBot`). All clients talk to the same HTTP API exposed by dockerBot (`/api/...`).
-
-### One-line product introductions
-
-| Project | Introduction |
-| --- | --- |
-| **dockerBot** | An AI agent system with fully automated development and one-click deployment. 
-Provide a Git repository and access token, and I’ll handle the full-stack development and deployment for you. |
-| **phoneBot** | Anytime, anywhere—pull out your phone and get development done. |
-| **clientBot** | A web-based intelligent IDE with one-click full-stack deployment support. |
+This article describes how the three subprojects in an AI agent system—featuring fully automated development and one-click deployment—collaborate with each other: the **NestJS backend** (`dockerBot`), the **Expo/React Native mobile client** (`phoneBot`), and the **Vite/React web IDE** (`clientBot`). 
+Provide a Git repository and access token, and the system will take care of full-stack development and deployment, with mobile support so you can build anytime, anywhere—right from your phone.
 
 ### Upstream repositories (GitHub)
 
@@ -42,11 +34,11 @@ flowchart LR
   WEB -->|REST + SSE| API
 ```
 
-| Package | GitHub | Path in this workspace | Primary role |
+| Package | GitHub | Introduction | Primary role |
 | --- | --- | --- | --- |
-| **dockerBot** | [jsCanvas/dockerBot](https://github.com/jsCanvas/dockerBot) | `task/dockerBot/` | Authoritative backend: projects, Git, files, encrypted model configs, multi-turn chat with **SSE**, agent runs in a **sandbox container**, MCP/Skills, Docker runtime orchestration via host `docker.sock`, Traefik-friendly previews. |
-| **phoneBot** | [jsCanvas/phoneBot](https://github.com/jsCanvas/phoneBot) | `task/phoneBot/` | First-party **mobile/desktop-style** UI (Expo): six tabs mapped 1:1 to dockerBot routes. Ships the canonical TypeScript modules shared with clientBot (`api/`, `hooks/`, `chat/`, `types/`, etc.). |
-| **clientBot** | [jsCanvas/clientBot](https://github.com/jsCanvas/clientBot) | `task/clientBot/` | **Web IDE** (VS Code–like shell): Monaco editor, file tree, terminal/output panels, sidebar chat with `@`/`/` mentions — reuses phoneBot logic via path alias **`@phoneBot/*`**. |
+| **dockerBot** | [jsCanvas/dockerBot](https://github.com/jsCanvas/dockerBot) | An AI agent system with fully automated development and one-click deployment. Provide a Git repository and access token, and I’ll handle the full-stack development and deployment for you. | Authoritative backend: projects, Git, files, encrypted model configs, multi-turn chat with **SSE**, agent runs in a **sandbox container**, MCP/Skills, Docker runtime orchestration via host `docker.sock`, Traefik-friendly previews. |
+| **phoneBot** | [jsCanvas/phoneBot](https://github.com/jsCanvas/phoneBot) | Anytime, anywhere—pull out your phone and get development done. | First-party **mobile/desktop-style** UI (Expo): six tabs mapped 1:1 to dockerBot routes. Ships the canonical TypeScript modules shared with clientBot (`api/`, `hooks/`, `chat/`, `types/`, etc.). |
+| **clientBot** | [jsCanvas/clientBot](https://github.com/jsCanvas/clientBot) | A web-based intelligent IDE with one-click full-stack deployment support. | **Web IDE** (VS Code–like shell): Monaco editor, file tree, terminal/output panels, sidebar chat with `@`/`/` mentions — reuses phoneBot logic via path alias **`@phoneBot/*`**. |
 
 ---
 
@@ -82,7 +74,7 @@ cp .env.example .env
 - **REST base URL:** `http://localhost:8080/api` (or your host/IP + `/api`).
 - Traefik dashboard (local profile) is referenced in `scripts/start.sh` output (commonly `:8081`).
 
-For API tables, curls, security notes, and npm scripts (`npm run start:dev`, tests, lint), see **`dockerBot/README.md`** and design notes under **`docs/plans/`** (e.g. `2026-04-28-dockerBot-design.md` when present).
+For API tables, curls, security notes, and npm scripts (`npm run start:dev`, tests, lint), see **[dockerBot/design.md](https://github.com/jsCanvas/dockerBot/blob/main/design.md)**
 
 ### 2.4 What clients must configure
 
@@ -126,7 +118,7 @@ npm run typecheck
 npm test
 ```
 
-Tab ↔ endpoint mapping is documented in **`phoneBot/README.md`**.
+Tab ↔ endpoint mapping is documented in **[phoneBot/design.md](https://github.com/jsCanvas/phoneBot/blob/main/design.md)**.
 
 ### 3.5 Screenshots (phoneBot UI)
 
@@ -231,13 +223,8 @@ Default UI language is **English** with optional **Chinese (zh-CN)**; locale is 
 
 | Topic | Location |
 | --- | --- |
-| dockerBot features, curls, npm scripts | `dockerBot/README.md` |
-| phoneBot tab ↔ API map, streaming notes | `phoneBot/README.md` |
-| Detailed implementation plans | `docs/plans/*.md` |
+| dockerBot features, curls, npm scripts | [dockerBot/design.md](https://github.com/jsCanvas/dockerBot/blob/main/design.md) |
+| phoneBot tab ↔ API map, streaming notes | [phoneBot/design.md](https://github.com/jsCanvas/phoneBot/blob/main/design.md) |
 | Built-in Skills (Docker runtime scaffold, etc.) | `dockerBot/src/skills/builtin/*.md` |
 
 ---
-
-## 7. Changelog discipline
-
-When adding features that touch REST or SSE contracts, prefer updating **dockerBot server**, then **shared types/usages under `phoneBot/src`**, then **clientBot** if only UI/strings change. Keeps `@phoneBot` imports type-correct across both clients.
