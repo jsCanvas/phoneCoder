@@ -300,3 +300,6 @@ clientCoder/vite.config.ts
 
 
 ### 7.5 进入git页面提交代码
+
+## 加入星球，获取核心后端源码：[github.com/jsCanvas/dockerBot](https://github.com/jsCanvas/dockerBot)
+![在这里插入图片描述](images/qiu.png)

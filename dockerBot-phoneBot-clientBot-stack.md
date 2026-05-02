@@ -301,3 +301,5 @@ Following the checklist, review and validate the full-stack project in label-202
 
 Open the **Git** tab, run your usual commit/push workflow for the cloned project, and synchronize with the remote repository.
 
+## Join the Star and obtain the core backend source code：[github.com/jsCanvas/dockerBot](https://github.com/jsCanvas/dockerBot)
+![join](images/qiu.png)
