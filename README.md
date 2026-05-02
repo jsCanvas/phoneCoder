@@ -226,3 +226,77 @@ Default UI language is **English** with optional **Chinese (zh-CN)**; locale is 
 | Built-in Skills (Docker runtime scaffold, etc.) | `dockerBot/src/skills/builtin/*.md` |
 
 ---
+
+## 7. Full-stack project development & deployment example
+
+### 7.1 Obtain a Git access token
+
+Open **[GitHub personal access tokens](https://github.com/settings/personal-access-tokens)** (Avatar → **Settings** → **Developer settings** → **Fine-grained personal access tokens**).  
+Create an access token and grant **Contents** — **Read and write** (**this is required**).
+
+![Grant Contents Read and write on the Fine-grained token](images/token.png)
+
+After you have the token, go to the **Projects** tab and create a project.
+
+### 7.2 Develop via multi-turn chat
+
+**Example prompt:**
+
+```
+/skill prompt2repo-engineering-rules 
+Follow the engineering skill rules: create folder label-2026043014 and implement the project inside label-2026043014 to spec. Below is my product prompt.
+
+Generate a separated frontend/backend web project.
+
+Flower shop management system with a cart-like workflow; include at least one page with an information table (similar to course selection) supporting full CRUD.
+
+The home page must be responsive, with strong UI polish—no broken styles. Use the UI kit’s dialogs and toast/notification APIs; the interface should look deliberate and polished.
+
+Strictly reproduce the UI from the design: Implement this design from Figma.
+@https://www.figma.com/design/XXXXXXX?node-id=418-56098&m=dev
+
+Frontend: Vue 3 + Vite + Element Plus; use axios against a REST API. Docker published port and app listen port must be **3000**.
+
+Backend: Java + Spring Boot. Docker published port and app listen port must be **8000**.
+
+Provide database code / migrations or operate the database for me. Use MySQL with Docker published port 3306.
+```
+
+If you have no Figma file, drop the Figma URL line from the prompt above.
+
+**Suggested prompt structure:**
+
+1. Full-stack skill: `/skill prompt2repo-engineering-rules`
+2. Name the directory/project root the agent should create
+3. Product requirements (features, workflows, responsive UI)
+4. UI rules / Figma; you can attach a Figma link or use **Figma MCP** when configured
+5. Frontend stack plus Docker/host port (**3000** in this example)
+6. Backend stack plus Docker/host port (**8000** in this example)
+7. Database stack and published port (**3306** here)
+
+**Example outcome:**
+
+| Coding | README | Files | Preview |
+| :---: | :---: | :---: | :---: |
+| ![IDE / agent coding view](images/develop1.jpeg) | ![README excerpt](images/develop4.jpeg) | ![File tree](images/files.jpeg) | ![Preview / runtime](images/preview.jpeg) |
+
+### 7.3 Open files & start Docker runtime
+
+In **Files**, use the Docker icon on the project (or subdirectory) row to start the stack;  
+then switch to **Preview** to open the running app.
+
+### 7.4 AI-assisted checklist QA
+
+```
+/skill prompt2repo-final-checklist 
+Following the checklist, review and validate the full-stack project in label-2026043014
+```
+
+**Suggested prompt structure:**
+
+1. QA skill: `/skill prompt2repo-final-checklist`
+2. Name the directory / project slice to audit
+
+### 7.5 Commit & push on Git
+
+Open the **Git** tab, run your usual commit/push workflow for the cloned project, and synchronize with the remote repository.

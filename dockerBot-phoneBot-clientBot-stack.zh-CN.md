@@ -226,3 +226,77 @@ clientCoder/vite.config.ts
 | 内置技能（Docker runtime 约定等） | `dockerBot/src/skills/builtin/*.md` |
 
 ---
+
+
+## 7.全栈项目开发部署示列
+
+### 7.1 获取项目【Git Access Token】
+
+进入[github链接](https://github.com/settings/personal-access-tokens)，点击 头像 --> settings --> Developer Settings --> Fine-grained personal access tokens.
+创建 Access Token ，添加 **Contents** 读写（**Read and write**）权限【重点】
+
+![添加Contents读写Read and write权限](images/token.png)
+
+获取到Git Access Token后进入 **projects** 页面  创建项目。
+
+### 7.2 多轮对话进行项目开发
+
+**prompt示列：**
+
+```
+/skill prompt2repo-engineering-rules 
+根据技能规则，创建目录label-2026043014，在项目label-2026043014文件目录下按照规范完成开发,以下是我的prompt
+
+帮我生成一个前后端分离的web项目。 
+
+生成卖花管理系系统， 有个类似于购物车的功能，类似还有某个页面最好有个信息表，比如选课信息表实现增删改查功能。
+
+首页支持响应式布局，着重关注页面UI样式，注意页面不要出现样式异常，使用UI组件库的弹窗和提示显示，界面优美，具有设计感。
+
+严格按照UI设计稿还原页面：Implement this design from Figma.
+@https://www.figma.com/design/XXXXXXX?node-id=418-56098&m=dev （如果有填写，没有可以去掉）
+
+前端的技术栈是 vue3+vite+Element Plus，前端用axios发请求，遵循restfulAPI，docker映射端口和启动端口必须是3000。
+
+后端使用java + Spring Boot，docker映射端口和启动端口必须是8000。
+
+然后帮我生成数据库的代码或者你直接帮我操作数据库，数据库采用mysql，docker映射端口为3306。
+```
+
+**提示词结构：**
+
+
+ 1. 全栈开发技能 /skill prompt2repo-engineering-rules；
+ 2. 规定项目创建目录；
+ 3. 描述需求；
+ 4. UI规范，如果有figma设计稿，可以使用figma mcp直接导入设计稿；
+ 5. 前端技术栈要求，前端docker映射端口；
+ 6. 后端技术栈要求，后端docker映射端口；
+ 7. 数据库技术栈要求，数据库docker映射端口；
+
+
+**执行结果如下：**
+
+| coding | readme | files | preview |
+| :---: | :---: | :---: | :---: |
+|![在这里插入图片描述](images/develop1.jpeg)|![在这里插入图片描述](images/develop4.jpeg)|![在这里插入图片描述](images/files.jpeg)|![在这里插入图片描述](images/preview.jpeg)|
+
+### 7.3 查看文件并启动项目
+
+进入Files页面，点击项目目录的 docker 图标启动项目；
+启动后点击预览，可以查看项目页面；
+
+### 7.4 AI自动化测试项目
+
+```
+/skill prompt2repo-final-checklist 
+按照checklist，测试全栈项目label-2026043014
+```
+
+**提示词结构：**
+
+ 1. 全栈测试技能 /skill prompt2repo-final-checklist；
+ 2. 规定测试项目目录；
+
+
+### 7.5 进入git页面提交代码
