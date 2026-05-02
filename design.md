@@ -1,4 +1,4 @@
-# phoneBot
+# phoneCoder
 
 Expo React Native + react-native-web client for the **dockerBot** AI coding
 service (`/dockerBot`). Replaces the original dockerBot integration.
@@ -46,7 +46,7 @@ Supported events: `run-started`, `assistant-text`, `tool-use`,
 ## Run
 
 ```bash
-cd phoneBot
+cd phoneCoder
 npm install
 npm run web         # browser (recommended for laptops)
 npm start           # interactive Expo CLI for iOS / Android / web
@@ -66,7 +66,7 @@ npm test            # 37 unit tests
 
 ```
 src/
-  api/phoneBotApi.ts          # typed REST client (+ multipart helper, SSE URL builder)
+  api/phoneCoderApi.ts          # typed REST client (+ multipart helper, SSE URL builder)
   config/defaults.ts          # default base URL / model
   chat/                       # token parsing + send-payload builder
   events/                     # SSE frame parser, event types, reducer
