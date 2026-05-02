@@ -22,6 +22,7 @@ import {
   removeFileTreeNode,
   shouldLoadDirectoryChildren,
   toggleExpandedPath,
+  WORKSPACE_ROOT_PATH,
 } from './fileTree';
 import { getEditorHeight, getMonacoLanguage } from './fileEditor';
 import { saveFileContent } from './screenActions';
@@ -49,7 +50,7 @@ export function FilesScreen({ apiBaseUrl, project, onRuntimeDirectorySelect }: F
   const [pendingDelete, setPendingDelete] = useState<PendingDelete | null>(null);
 
   useEffect(() => {
-    setExpandedPaths(new Set());
+    setExpandedPaths(new Set([WORKSPACE_ROOT_PATH]));
     setContent(null);
     setDraft('');
     if (project) void loadTree();
@@ -87,6 +88,10 @@ export function FilesScreen({ apiBaseUrl, project, onRuntimeDirectorySelect }: F
 
   async function toggleDirectory(item: FileTreeNode) {
     if (!project) return;
+    if (item.path === WORKSPACE_ROOT_PATH) {
+      setExpandedPaths((current) => toggleExpandedPath(current, item.path));
+      return;
+    }
     const wasExpanded = expandedPaths.has(item.path);
     setExpandedPaths((current) => toggleExpandedPath(current, item.path));
     if (!shouldLoadDirectoryChildren(item, wasExpanded)) return;
@@ -166,7 +171,14 @@ export function FilesScreen({ apiBaseUrl, project, onRuntimeDirectorySelect }: F
     setDraft(value ?? '');
   }, []);
 
-  const flatTree = useMemo(() => flattenVisibleTree(tree, expandedPaths), [tree, expandedPaths]);
+  const explorerTree = useMemo((): FileTreeNode[] => {
+    if (!project) return [];
+    const segments = project.workdir.replace(/\\/g, '/').split('/').filter(Boolean);
+    const rootLabel = segments.length ? segments[segments.length - 1]! : project.slug || project.name;
+    return [{ name: rootLabel, path: WORKSPACE_ROOT_PATH, type: 'dir', children: tree }];
+  }, [project, tree]);
+
+  const flatTree = useMemo(() => flattenVisibleTree(explorerTree, expandedPaths), [explorerTree, expandedPaths]);
   const editorHeight = getEditorHeight(viewportHeight);
   const deleteDialog = (
     <DeleteConfirmationDialog
@@ -265,10 +277,16 @@ export function FilesScreen({ apiBaseUrl, project, onRuntimeDirectorySelect }: F
                 <View style={styles.actionGroup}>
                   {item.type === 'dir' ? (
                     <Pressable
-                      accessibilityLabel={`Start Docker from ${item.path}`}
+                      accessibilityLabel={
+                        item.path === WORKSPACE_ROOT_PATH
+                          ? `Start Docker at workspace root (${project?.workdir ?? ''})`
+                          : `Start Docker from ${item.path}`
+                      }
                       onPress={(event) => {
                         event.stopPropagation();
-                        onRuntimeDirectorySelect?.(item.path);
+                        onRuntimeDirectorySelect?.(
+                          item.path === WORKSPACE_ROOT_PATH ? WORKSPACE_ROOT_PATH : item.path,
+                        );
                       }}
                       hitSlop={6}
                       style={({ pressed }) => [
@@ -279,20 +297,22 @@ export function FilesScreen({ apiBaseUrl, project, onRuntimeDirectorySelect }: F
                       <ActionIcon kind="docker" />
                     </Pressable>
                   ) : null}
-                  <Pressable
-                    accessibilityLabel={`Delete ${item.path}`}
-                    onPress={(event) => {
-                      event.stopPropagation();
-                      confirmDelete(item.path, item.type);
-                    }}
-                    hitSlop={6}
-                    style={({ pressed }) => [
-                      styles.iconButton,
-                      pressed && styles.iconButtonPressed,
-                    ]}
-                  >
-                    <ActionIcon kind="delete" />
-                  </Pressable>
+                  {item.path === WORKSPACE_ROOT_PATH ? null : (
+                    <Pressable
+                      accessibilityLabel={`Delete ${item.path}`}
+                      onPress={(event) => {
+                        event.stopPropagation();
+                        confirmDelete(item.path, item.type);
+                      }}
+                      hitSlop={6}
+                      style={({ pressed }) => [
+                        styles.iconButton,
+                        pressed && styles.iconButtonPressed,
+                      ]}
+                    >
+                      <ActionIcon kind="delete" />
+                    </Pressable>
+                  )}
                 </View>
               </Pressable>
             );

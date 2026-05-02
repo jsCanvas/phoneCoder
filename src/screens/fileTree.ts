@@ -1,5 +1,11 @@
 import type { FileTreeNode } from '../types/api';
 
+/**
+ * Virtual file-tree row path for the project workspace root (not a real repo path).
+ * When used as `runtimeDirectory` on Preview, means `runtimeUp` without `composePath`.
+ */
+export const WORKSPACE_ROOT_PATH = '\0workspace-root';
+
 export type FileTreeRequestOptions = {
   dir?: string;
   depth?: number;

@@ -4,6 +4,7 @@ import { PhoneBotApiClient } from '../api/phoneBotApi';
 import { ScreenCard } from '../components/ScreenCard';
 import type { ProjectDto, RuntimeDto } from '../types/api';
 import { getErrorMessage } from '../utils/errorMessage';
+import { WORKSPACE_ROOT_PATH } from './fileTree';
 import {
   canOpenRuntimePreview,
   closeRuntimePreview,
@@ -57,8 +58,15 @@ export function PreviewScreen({
     }
   }
 
-  async function start(composePath?: string) {
+  async function start(composeDir?: string) {
     if (!project) return;
+    const composePath = composeDir === WORKSPACE_ROOT_PATH ? undefined : composeDir;
+    const where =
+      composeDir === WORKSPACE_ROOT_PATH
+        ? ' at workspace root'
+        : composePath
+          ? ` from ${composePath}`
+          : '';
     try {
       const next = await startRuntimeAndOpen({
         apiClient,
@@ -68,9 +76,7 @@ export function PreviewScreen({
       });
       setRuntime(next);
       setStatus(
-        next.preview_url
-          ? `Started${composePath ? ` from ${composePath}` : ''}. Preview: ${next.preview_url}`
-          : `Runtime started${composePath ? ` from ${composePath}` : ''}.`,
+        next.preview_url ? `Started${where}. Preview: ${next.preview_url}` : `Started${where}.`,
       );
     } catch (error) {
       setStatus(`Start failed: ${getErrorMessage(error)}`);
